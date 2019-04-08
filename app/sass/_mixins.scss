@@ -1,0 +1,71 @@
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    src: url('#{$file-path}.woff2') format('woff2'), url('#{$file-path}.woff') format('woff'), url('#{$file-path}.eot') format('truetype');
+  }
+}
+@mixin font ($font-size, $line-height, $font-family) {
+  font-size: $font-size;
+  line-height: $line-height;
+  font-family: $font-family, sans-serif;
+}
+@mixin pseudo {
+  content: '';
+  position: absolute;
+  box-sizing: border-box;
+}
+
+/*after-xs, after-sm, after-md, xl - used for mobile first markup*/
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1370px;
+$screen-xs-max: ($screen-sm - 1);
+$screen-sm-max: ($screen-md - 1);
+$screen-md-max: ($screen-lg - 1);
+$screen-lg-max: ($screen-xl - 1);
+
+@mixin media($media) {
+  @if $media == xs {
+    @media (max-width: $screen-xs-max) {
+      @content;
+    }      
+  }
+  @else if $media == after-xs {
+    @media (min-width: $screen-sm) {
+      @content;
+    }
+  }
+  @else if $media == sm {
+    @media (max-width: $screen-sm-max) { 
+      @content;
+    }
+  }
+  @else if $media == after-sm {
+    @media (min-width: $screen-md) {
+      @content;
+    }
+  }
+  @else if $media == md { 
+    @media (max-width: $screen-md-max) {
+      @content;
+    }
+  }
+  @else if $media == after-md {
+    @media (min-width: $screen-lg) {
+      @content;
+    }
+  }
+  @else if $media == lg {
+    @media (max-width: $screen-lg-max) {
+      @content;
+    }
+  }
+  @else if $media == xl {
+    @media (min-width: $screen-xl) {
+      @content;
+    }
+  }
+}
