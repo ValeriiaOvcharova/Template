@@ -69,3 +69,216 @@ $screen-lg-max: ($screen-xl - 1);
     }
   }
 }
+
+// LEFT RIGHT AND BOTTOM PANNELS FOR IMG-WRAPPER
+
+@mixin location-panel ($side, $location, $bottom: false) {
+  @if $side != false and $location != false {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    &:before, &:after {
+      left: 0;
+      right: 0;
+    }
+
+    &:before {    
+      top: 0;
+      bottom: 25px;
+      
+    }
+    &:after {
+      top: 25px;
+      bottom: 0;      
+    }
+
+    @if $side == left {
+      right: 100%;      
+      transform: translateX(110%);
+
+      &:before {
+        transform: skewY(8deg);
+        border-radius: 15px 0 0 0;
+      } 
+      &:after {
+        transform: skewY(-8deg);
+        border-radius: 0 0 0 15px;
+      } 
+      @if $location == top {
+        top: 0;
+      }  
+      @else if $location == bottom {
+        bottom: 0;
+      }
+    }
+    
+    @else if $side == right {
+      left: 100%;
+      transform: translateX(-110%);
+
+      &:before {
+        transform: skewY(-8deg);
+        border-radius: 0 15px 0 0;
+      } 
+      &:after {
+        transform: skewY(8deg);
+        border-radius: 0 0 15px 0;
+      } 
+      @if $location == top {
+        top: 0;
+      }  
+      @else if $location == bottom {
+        bottom: 0;
+      }
+    }
+    @if $location == all {
+      top: 0;
+      bottom: 0;
+      
+      &:before {    
+        bottom: 40%;
+      }
+      &:after {
+        top: 40%;   
+      }
+      @if $side == left {
+        &:before, &:after {
+          transform-origin: 10%;
+          right: -500%;
+        }
+        &:before {    
+          transform: skewY(16deg);                 
+        }
+        &:after {
+          transform: skewY(-16deg); 
+        }
+      }
+      @else if $side == right {
+        &:before, &:after {
+          transform-origin: 90%;
+          left: -500%;
+        }    
+        &:before {    
+          transform: skewY(-16deg);                 
+        }
+        &:after {
+          transform: skewY(16deg); 
+        }
+      }
+    }
+  } 
+
+  @if $bottom == true {
+    display: block;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transform: translateY(-110%);    
+    
+    &:before, &:after {
+      top: 0;
+      bottom: 0;
+    }
+    &:before {
+      border-radius: 0 0 0 15px;   
+      left: 0;
+      right: 50px;
+      transform: skewX(-15deg);
+    }
+    &:after {
+      border-radius: 0 0 15px 0;
+      left: 50px;
+      right: 0;   
+      transform: skewX(15deg);
+    }
+  }
+}
+@mixin trapeze-border ($position, $deg, $border: $color-border) {
+  &:before, &:after {
+    border-color: $border;
+    border-style: solid;
+  }
+  @if $position == vertical {
+    &:before, &:after {
+      top: 0;
+      bottom: 0;
+    }
+    &:before {
+      left: 0;
+      right: 38%;
+      transform: skewX(#{$deg});
+      border-width: 1px 0 1px 1px;
+      border-radius: 15px 0 0 15px;
+    }
+    &:after {
+      left: 38%;
+      right: 0;
+      transform: skewX(-#{$deg});
+      border-width: 1px 1px 1px 0;
+      border-radius: 0 15px 15px 0;
+    }
+  }
+  @if $position == horizontal {
+    &:before, &:after {
+      left: 0;
+      right: 0;
+    }
+    &:before {
+      top: 0;
+      bottom: 38%;
+      transform: skewY(-#{$deg});
+      border-width: 1px 1px 0 1px;
+      border-radius: 15px 15px 0 0;
+    }
+    &:after {
+      top: 38%;
+      bottom: 0;
+      transform: skewY(#{$deg});
+      border-width: 0 1px 1px 1px;
+      border-radius: 0 0 15px 15px;
+    }
+  }
+}
+
+@mixin admin-shadow {
+  box-shadow: 0px 34px 123.69px 9.31px rgba(198, 205, 231, 0.38);
+}
+@mixin ball-shadow {
+  &:before {
+    @include pseudo;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 5%;
+    width: 51%;
+    height: 51%;
+    border-radius: 50%;
+    box-shadow: 0px 49px 62.31px 4.69px rgba(0, 0, 0, 0.23);
+    z-index: -10;
+  }
+}
+
+@mixin button ($color-border: $color-border, $color: $color-icon, $dashed: false, $radius: 1.5625rem, $size: true, $hover: true, $width: $btn-width, $height: $btn-height, $font-size: 1.375rem) {
+  @if $dashed == true {
+    border: 1px dashed $color-border;
+  } @else {
+    border: 1px solid $color-border;
+  }
+  @if $size == true {
+    width: $width;
+    height: $height;
+  }  
+  border-radius: $radius;
+  color: $color;
+  font-size: $font-size;
+  transition: .3s;
+
+  @if $hover == true {
+    &:hover {
+      border-color: $black;
+      color: $black;
+    }
+  }    
+}

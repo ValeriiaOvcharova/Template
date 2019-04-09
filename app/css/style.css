@@ -892,11 +892,6 @@ a.active-bookmark {
   box-shadow: 0px 49px 62.31px 4.69px rgba(150, 155, 175, 0.23);
 }
 
-.layer {
-  height: 100%;
-  background-size: contain;
-}
-
 .panel-buttons {
   position: absolute;
   padding: 1.25rem 0.9375rem;

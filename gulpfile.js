@@ -52,7 +52,7 @@ function images() {
 // CSS task
 function css() {
   return gulp
-    .src("./app/sass/**/*.sass")
+    .src("./app/sass/**/*.scss")
     .pipe(sass({ outputStyle: "expanded" }))
     .pipe(gulp.dest("./app/css/"))
     .pipe(browsersync.stream())
